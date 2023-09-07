@@ -28,7 +28,7 @@ function spinAll() {
     spin(index);
   });
 
-  let delay = 1300;
+  let delay = 5000;
   let increment = 500;
   let lastSlot = slots.length - 1;
 
@@ -111,7 +111,7 @@ function spin(slotIndex) {
 
     let elapsed = time - startTime;
 
-    if (elapsed > 30) {
+    if (elapsed > 150) {
       // Update every 70 milliseconds
       let currentItem = randomSubset[currentIndex];
       imageElement.src = currentItem.image;
