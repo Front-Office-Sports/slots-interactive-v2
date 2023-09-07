@@ -323,3 +323,11 @@ const dataList = [
     },
   ],
 ];
+
+// Preload all images
+dataList.forEach((data) => {
+  data.forEach((item) => {
+    let img = new Image();
+    img.src = item.image;
+  });
+});

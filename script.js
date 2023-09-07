@@ -26,8 +26,8 @@ function spinAll() {
     spin(index);
   });
 
-  let delay = 2000;
-  let increment = 1000;
+  let delay = 1300;
+  let increment = 500;
   let lastSlot = slots.length - 1;
 
   slots.forEach((_, index) => {
@@ -44,8 +44,21 @@ function spinAll() {
   });
 }
 
+// Helper function to shuffle an array
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
 function spin(slotIndex) {
   let data = dataList[slotIndex];
+
+  // Shuffle the data and pick the first 10 items
+  let randomSubset = shuffleArray([...data]).slice(0, 10);
+
   let slotId = `slot${slotIndex + 1}`;
   let slotElement = document.getElementById(slotId);
   let imageElement = slotElement.querySelector(".slotImage");
@@ -56,11 +69,11 @@ function spin(slotIndex) {
 
   let currentIndex = 0;
   intervals[slotId] = setInterval(() => {
-    let currentItem = data[currentIndex];
+    let currentItem = randomSubset[currentIndex];
     imageElement.src = currentItem.image;
     textElement.textContent = currentItem.text;
-    currentIndex = (currentIndex + 1) % data.length;
-  }, 50);
+    currentIndex = (currentIndex + 1) % randomSubset.length;
+  }, 70);
 }
 
 function stopSpinning(slotIndex) {
