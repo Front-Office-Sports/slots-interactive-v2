@@ -7,11 +7,20 @@
   font-family: "Untitled Sans", sans-serif;
 }
 
+body {
+  border: 1px solid purple;
+}
+
 .slots-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+  /* display: flex; */
+  /* flex-direction: row; */
+  /* justify-content: center; */
   border: 1px solid green;
+
+  display: grid;
+  grid-template-columns: auto auto auto auto; /* Make each column only as wide as its content */
+  gap: 8px;
+  justify-content: center; /* Horizontally center the grid cells */
 }
 
 .slot {
@@ -133,4 +142,10 @@ img[src="images/slot_cover/cherry_cover.png"] {
   align-items: center;
 
   border: 1px solid blue;
+}
+
+@media (max-width: 768px) {
+  .slots-container {
+    grid-template-columns: auto auto; /* In mobile view, 2 columns */
+  }
 }

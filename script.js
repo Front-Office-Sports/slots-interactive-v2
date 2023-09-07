@@ -60,7 +60,7 @@ function spin(slotIndex) {
     imageElement.src = currentItem.image;
     textElement.textContent = currentItem.text;
     currentIndex = (currentIndex + 1) % data.length;
-  }, 100);
+  }, 50);
 }
 
 function stopSpinning(slotIndex) {
