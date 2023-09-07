@@ -85,7 +85,7 @@ function spin(slotIndex) {
   let data = dataList[slotIndex];
 
   // Shuffle the data and pick the first 10 items
-  let randomSubset = shuffleArray([...data]).slice(0, 10);
+  let randomSubset = shuffleArray([...data]).slice(0, 32);
 
   let slotId = `slot${slotIndex + 1}`;
   let slotElement = document.getElementById(slotId);
