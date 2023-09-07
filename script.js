@@ -1,6 +1,10 @@
 const coverImage = "images/slot_cover/cherry_cover.png"; // Replace with the actual path to your cover image
 const coverText = ""; // Replace with the text you want to display on the cover
 
+const newImageEvery = 70; // Change this to the number of milliseconds you want to wait before changing the image
+const spinFor = 1500; // Change this to the number of milliseconds you want to spin for
+const stopEvery = 500; // Change this to the number of milliseconds you want to wait before stopping each slot
+
 // fill all slotImage with coverImage
 slotImages = document.querySelectorAll(".slotImage");
 slotImages.forEach((slotImage) => {
@@ -28,8 +32,8 @@ function spinAll() {
     spin(index);
   });
 
-  let delay = 5000;
-  let increment = 500;
+  let delay = spinFor;
+  let increment = stopEvery;
   let lastSlot = slots.length - 1;
 
   slots.forEach((_, index) => {
@@ -78,7 +82,7 @@ function spinOld(slotIndex) {
     imageElement.src = currentItem.image;
     textElement.textContent = currentItem.text;
     currentIndex = (currentIndex + 1) % randomSubset.length;
-  }, 70);
+  }, newImageEvery);
 }
 
 function spin(slotIndex) {
@@ -111,8 +115,7 @@ function spin(slotIndex) {
 
     let elapsed = time - startTime;
 
-    if (elapsed > 150) {
-      // Update every 70 milliseconds
+    if (elapsed > newImageEvery) {
       let currentItem = randomSubset[currentIndex];
       imageElement.src = currentItem.image;
       textElement.textContent = currentItem.text;
