@@ -13,6 +13,8 @@ let intervals = {};
 
 let spinning = false;
 
+let animationIds = {}; // To store animation request IDs for each slot
+
 function spinAll() {
   if (spinning) return; // Exit if already spinning
 
@@ -56,7 +58,7 @@ function shuffleArray(array) {
   return array;
 }
 
-function spin(slotIndex) {
+function spinOld(slotIndex) {
   let data = dataList[slotIndex];
 
   // Shuffle the data and pick the first 10 items
@@ -79,9 +81,54 @@ function spin(slotIndex) {
   }, 70);
 }
 
-function stopSpinning(slotIndex) {
+function spin(slotIndex) {
+  let data = dataList[slotIndex];
+
+  // Shuffle the data and pick the first 10 items
+  let randomSubset = shuffleArray([...data]).slice(0, 10);
+
   let slotId = `slot${slotIndex + 1}`;
-  clearInterval(intervals[slotId]);
+  let slotElement = document.getElementById(slotId);
+  let imageElement = slotElement.querySelector(".slotImage");
+  let textElement = slotElement.querySelector(".slotText");
+
+  imageElement.classList.add("blur");
+  textElement.classList.add("blur-text");
+
+  // hide the text
+  // textElement.classList.add("hidden");
+
+  let currentIndex = 0;
+  let startTime = null;
+
+  // Cancel any existing animation for this slot
+  if (animationIds[slotId]) {
+    cancelAnimationFrame(animationIds[slotId]);
+  }
+
+  function animate(time) {
+    if (!startTime) startTime = time;
+
+    let elapsed = time - startTime;
+
+    if (elapsed > 30) {
+      // Update every 70 milliseconds
+      let currentItem = randomSubset[currentIndex];
+      imageElement.src = currentItem.image;
+      textElement.textContent = currentItem.text;
+      currentIndex = (currentIndex + 1) % randomSubset.length;
+      startTime = time; // Reset the start time
+    }
+
+    animationIds[slotId] = requestAnimationFrame(animate);
+  }
+
+  animationIds[slotId] = requestAnimationFrame(animate);
+}
+
+function stopSpinningOld(slotIndex) {
+  // let slotId = `slot${slotIndex + 1}`;
+  // clearInterval(intervals[slotId]);
 
   let data = dataList[slotIndex];
   let slotElement = document.getElementById(slotId);
@@ -89,6 +136,23 @@ function stopSpinning(slotIndex) {
   let textElement = slotElement.querySelector(".slotText");
 
   // imageElement.classList.remove("blur");
+  textElement.classList.remove("blur-text");
+
+  let randomIndex = Math.floor(Math.random() * data.length);
+  let randomItem = data[randomIndex];
+  imageElement.src = randomItem.image;
+  textElement.textContent = randomItem.text;
+}
+
+function stopSpinning(slotIndex) {
+  let slotId = `slot${slotIndex + 1}`;
+  cancelAnimationFrame(animationIds[slotId]); // Stop the animation
+
+  let data = dataList[slotIndex];
+  let slotElement = document.getElementById(slotId);
+  let imageElement = slotElement.querySelector(".slotImage");
+  let textElement = slotElement.querySelector(".slotText");
+
   textElement.classList.remove("blur-text");
 
   let randomIndex = Math.floor(Math.random() * data.length);
@@ -114,8 +178,36 @@ function resetSlots() {
   spinShareButton.innerText = "Spin";
 }
 
+// Function to open the share modal
 function shareFunction() {
-  console.log("Share button clicked.");
+  console.log("shareFunction");
+  const modal = document.getElementById("shareModal");
+  modal.style.display = "block";
+  displayResultsInModal(); // Populate the modal with the results
+}
+
+// Function to close the share modal
+function closeModal() {
+  const modal = document.getElementById("shareModal");
+  modal.style.display = "none";
+}
+
+function shareCopyText() {
+  console.log("shareCopyText");
+}
+
+// Function to share to Facebook
+function shareToFacebook() {
+  // Your Facebook sharing code here
+  // You can close the modal after sharing
+  console.log("shareToFacebook");
+}
+
+// Function to share to Twitter
+function shareToTwitter() {
+  // Your Twitter sharing code here
+  // You can close the modal after sharing
+  console.log("shareToTwitter");
 }
 
 function spinOrShare() {
@@ -127,4 +219,34 @@ function spinOrShare() {
     // Call your share function here
     shareFunction();
   }
+}
+
+function displayResultsInModal() {
+  let shareContent = document.getElementById("shareContent");
+  let results = [];
+
+  // Map each title to an emoji
+  const emojis = {
+    City: "🏢",
+    Owner: "💵",
+    Coach: "📢",
+    QB: "🏈",
+  };
+
+  // Fetch text from each slot
+  for (let i = 1; i <= 4; i++) {
+    let slotId = `slot${i}`;
+    let slotElement = document.getElementById(slotId);
+    let textElement = slotElement.querySelector(".slotText");
+    let title = document
+      .querySelector(`.slot-and-title:nth-child(${i}) h2`)
+      .textContent.trim();
+    let text = textElement.textContent;
+    let emoji = emojis[title] || ""; // Use an empty string as a fallback
+
+    results.push(`${emoji} ${title}: ${text}`);
+  }
+
+  // Update the modal content
+  shareContent.innerHTML = results.join("<br>");
 }

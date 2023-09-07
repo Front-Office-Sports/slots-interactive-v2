@@ -149,6 +149,58 @@ img[src="images/slot_cover/cherry_cover.png"] {
   /* border: 1px solid blue; */
 }
 
+.hidden {
+  visibility: hidden;
+  /* or alternatively: */
+  /* opacity: 0; */
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.close-button {
+  cursor: pointer;
+  /* put it in the top right corner */
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 15px;
+}
+
+#shareContent {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.shareHeader {
+  margin-top: 20px;
+}
+.shareButtons {
+  margin-top: 20px;
+}
+
 @media (max-width: 768px) {
   .slots-container {
     grid-template-columns: auto auto; /* In mobile view, 2 columns */

@@ -2,7 +2,15 @@
 <html>
   <head>
     <title>FOS NFL Fantasy Franchise</title>
+    <meta charset="UTF-8" />
+
     <link rel="stylesheet" href="styles.css" />
+
+    <!-- font awesome for social media icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    />
   </head>
   <body>
     <!-- some game intro text -->
@@ -53,5 +61,25 @@
 
     <script src="data/nfl.js"></script>
     <script src="script.js"></script>
+
+    <div id="shareModal" class="modal">
+      <div class="modal-content">
+        <span class="close-button" onclick="closeModal()">&times;</span>
+        <h2 class="shareHeader">Share your NFL franchise.</h2>
+        <div id="shareContent">
+          <!-- This is where the results will be displayed -->
+        </div>
+        <button class="shareButtons" onclick="shareCopyText()">
+          <i class="fas fa-share-alt"></i> Copy
+        </button>
+        <button class="shareButtons" onclick="shareToTwitter()">
+          <i class="fab fa-twitter"></i> Tweet
+        </button>
+        <button class="shareButtons" onclick="shareToFacebook()">
+          <i class="fab fa-facebook"></i> Facebook
+        </button>
+        <!-- Add more share options here -->
+      </div>
+    </div>
   </body>
 </html>
