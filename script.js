@@ -36,9 +36,12 @@ function spinAll() {
 
       // Enable the button when the last slot has stopped
       if (index === lastSlot) {
+        // Enable the spin button spinResetButton button
         document.getElementById("spinShareButton").disabled = false;
         document.getElementById("resetButton").disabled = false;
         spinning = false;
+        // Change the text of the button to 'Share'
+        spinShareButton.innerText = "Share";
       }
     }, delay + index * increment);
   });
@@ -106,4 +109,22 @@ function resetSlots() {
     // If you want to remove the blur effect when resetting, uncomment the line below
     imageElement.classList.remove("blur");
   });
+
+  // Change the text of the button to 'Spin'
+  spinShareButton.innerText = "Spin";
+}
+
+function shareFunction() {
+  console.log("Share button clicked.");
+}
+
+function spinOrShare() {
+  const spinShareButton = document.getElementById("spinShareButton");
+
+  if (spinShareButton.innerText === "Spin") {
+    spinAll();
+  } else if (spinShareButton.innerText === "Share") {
+    // Call your share function here
+    shareFunction();
+  }
 }
