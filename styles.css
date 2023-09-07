@@ -11,6 +11,10 @@ body {
   border: 1px solid purple;
 }
 
+p {
+  text-align: center;
+}
+
 .slots-container {
   /* display: flex; */
   /* flex-direction: row; */
