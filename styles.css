@@ -178,6 +178,8 @@ img[src="images/slot_cover/cherry_cover.png"] {
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
+
+  width: 30%;
 }
 
 .close-button {
@@ -187,6 +189,7 @@ img[src="images/slot_cover/cherry_cover.png"] {
   top: 0;
   right: 0;
   padding: 15px;
+  font-size: 24px;
 }
 
 #shareContent {
@@ -197,6 +200,7 @@ img[src="images/slot_cover/cherry_cover.png"] {
 .shareHeader {
   margin-top: 20px;
 }
+
 .shareButtons {
   margin-top: 20px;
 }
@@ -204,5 +208,8 @@ img[src="images/slot_cover/cherry_cover.png"] {
 @media (max-width: 768px) {
   .slots-container {
     grid-template-columns: auto auto; /* In mobile view, 2 columns */
+  }
+  .modal-content {
+    width: 80%;
   }
 }
