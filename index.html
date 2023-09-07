@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Slot Machine</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- some game intro text -->
+    <div class="game-intro">
+      <p>Imagine if you could build your own NFL franchise from scratch.</p>
+      <p>Press 'Spin' to play and share your results on social media.</p>
+      <p>Is your NFL team a Super Bowl contender?</p>
+    </div>
+
+    <div class="slots-container">
+      <div class="slot-and-title">
+        <h2>City</h2>
+        <div class="slot" id="slot1">
+          <img class="slotImage" src="" alt="Slot image" />
+          <div class="slotText overlay"></div>
+        </div>
+      </div>
+      <div class="slot-and-title">
+        <h2>Owner</h2>
+        <div class="slot" id="slot2">
+          <img class="slotImage" src="" alt="Slot image" />
+          <div class="slotText overlay"></div>
+        </div>
+      </div>
+      <div class="slot-and-title">
+        <h2>Coach</h2>
+        <div class="slot" id="slot3">
+          <img class="slotImage" src="" alt="Slot image" />
+          <div class="slotText overlay"></div>
+        </div>
+      </div>
+      <div class="slot-and-title">
+        <h2>QB</h2>
+        <div class="slot" id="slot4">
+          <img class="slotImage" src="" alt="Slot image" />
+          <div class="slotText overlay"></div>
+        </div>
+      </div>
+    </div>
+    <div class="buttonHolder">
+      <button onclick="spinAll()" id="spinShareButton">Spin</button>
+      <button onclick="resetSlots()" id="resetButton">Reset</button>
+    </div>
+
+    <script src="data/nfl.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
