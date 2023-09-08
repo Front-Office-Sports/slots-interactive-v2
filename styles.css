@@ -172,9 +172,11 @@ img[src="images/slot_cover/cherry_cover.png"] {
   align-items: center;
 
   position: absolute;
-  top: 30%;
+  top: 50px; /* Changed from 40% to 50px */
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(
+    -50%
+  ); /* Changed from translate(-50%, -50%) to only affect the x-axis */
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
@@ -210,6 +212,6 @@ img[src="images/slot_cover/cherry_cover.png"] {
     grid-template-columns: auto auto; /* In mobile view, 2 columns */
   }
   .modal-content {
-    width: 80%;
+    width: 70%;
   }
 }
