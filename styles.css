@@ -219,6 +219,7 @@ img[src="images/slot_cover/cherry_cover.png"] {
   border-radius: 4px;
   opacity: 0;
   transition: opacity 0.3s ease;
+  text-align: center;
 }
 
 /* grid-template-columns: auto auto;  */

@@ -1,4 +1,5 @@
 // NOTE: change the values below to customize the game
+
 const coverImage = "images/slot_cover/cherry_cover.png"; // Replace with the actual path to your cover image
 const coverText = ""; // Replace with the text you want to display on the cover
 
@@ -9,13 +10,15 @@ const pickFirstN = 10; // Change this to the number of items you want to pick fo
 
 const gameUrl = "https://frontofficesports.com/nfl-fantasy-franchise/"; // Replace with the actual URL of your game
 
+const slots = ["slot1", "slot2", "slot3", "slot4"]; // Replace with the IDs of your slots. This is also the number of slots you have.
+
+// NOTE: change the values above to customize the game
+
 // fill all slotImage with coverImage
 slotImages = document.querySelectorAll(".slotImage");
 slotImages.forEach((slotImage) => {
   slotImage.src = coverImage;
 });
-
-const slots = ["slot1", "slot2", "slot3", "slot4"];
 
 let intervals = {};
 
@@ -23,116 +26,9 @@ let spinning = false;
 
 let animationIds = {}; // To store animation request IDs for each slot
 
-function spinAll() {
-  if (spinning) return; // Exit if already spinning
+// --- Spin Functionality ---
 
-  spinning = true;
-
-  // Disable the spin button spinResetButton button
-  document.getElementById("spinShareButton").disabled = true;
-  document.getElementById("resetButton").disabled = true;
-
-  slots.forEach((_, index) => {
-    spin(index);
-  });
-
-  let delay = spinFor;
-  let increment = stopEvery;
-  let lastSlot = slots.length - 1;
-
-  slots.forEach((_, index) => {
-    setTimeout(() => {
-      stopSpinning(index);
-
-      // Enable the button when the last slot has stopped
-      if (index === lastSlot) {
-        // Enable the spin button spinResetButton button
-        document.getElementById("spinShareButton").disabled = false;
-        document.getElementById("resetButton").disabled = false;
-        spinning = false;
-        // Change the text of the button to 'Share'
-        spinShareButton.innerText = "Share";
-      }
-    }, delay + index * increment);
-  });
-}
-
-// Helper function to shuffle an array
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
-}
-
-function spinOld(slotIndex) {
-  let data = dataList[slotIndex];
-
-  // Shuffle the data and pick the first 10 items
-  let randomSubset = shuffleArray([...data]).slice(0, 10);
-
-  let slotId = `slot${slotIndex + 1}`;
-  let slotElement = document.getElementById(slotId);
-  let imageElement = slotElement.querySelector(".slotImage");
-  let textElement = slotElement.querySelector(".slotText");
-
-  imageElement.classList.add("blur");
-  textElement.classList.add("blur-text");
-
-  let currentIndex = 0;
-  intervals[slotId] = setInterval(() => {
-    let currentItem = randomSubset[currentIndex];
-    imageElement.src = currentItem.image;
-    textElement.textContent = currentItem.text;
-    currentIndex = (currentIndex + 1) % randomSubset.length;
-  }, newImageEvery);
-}
-
-function spinOld2(slotIndex) {
-  let data = dataList[slotIndex];
-
-  // Shuffle the data and pick the first 10 items
-  let randomSubset = shuffleArray([...data]).slice(0, pickFirstN);
-
-  let slotId = `slot${slotIndex + 1}`;
-  let slotElement = document.getElementById(slotId);
-  let imageElement = slotElement.querySelector(".slotImage");
-  let textElement = slotElement.querySelector(".slotText");
-
-  imageElement.classList.add("blur");
-  // textElement.classList.add("blur-text");
-
-  // hide the text
-  // textElement.classList.add("hidden");
-
-  let currentIndex = 0;
-  let startTime = null;
-
-  // Cancel any existing animation for this slot
-  if (animationIds[slotId]) {
-    cancelAnimationFrame(animationIds[slotId]);
-  }
-
-  function animate(time) {
-    if (!startTime) startTime = time;
-
-    let elapsed = time - startTime;
-
-    if (elapsed > newImageEvery) {
-      let currentItem = randomSubset[currentIndex];
-      imageElement.src = currentItem.image;
-      textElement.textContent = currentItem.text;
-      currentIndex = (currentIndex + 1) % randomSubset.length;
-      startTime = time; // Reset the start time
-    }
-
-    animationIds[slotId] = requestAnimationFrame(animate);
-  }
-
-  animationIds[slotId] = requestAnimationFrame(animate);
-}
-
+// Function to spin a slot
 function spin(slotIndex) {
   let data = dataList[slotIndex];
   let randomSubset = shuffleArray([...data]).slice(0, 32);
@@ -178,24 +74,7 @@ function spin(slotIndex) {
   animationIds[slotId] = requestAnimationFrame(animate);
 }
 
-function stopSpinningOld(slotIndex) {
-  // let slotId = `slot${slotIndex + 1}`;
-  // clearInterval(intervals[slotId]);
-
-  let data = dataList[slotIndex];
-  let slotElement = document.getElementById(slotId);
-  let imageElement = slotElement.querySelector(".slotImage");
-  let textElement = slotElement.querySelector(".slotText");
-
-  // imageElement.classList.remove("blur");
-  textElement.classList.remove("blur-text");
-
-  let randomIndex = Math.floor(Math.random() * data.length);
-  let randomItem = data[randomIndex];
-  imageElement.src = randomItem.image;
-  textElement.textContent = randomItem.text;
-}
-
+// Function to stop spinning a slot
 function stopSpinning(slotIndex) {
   let slotId = `slot${slotIndex + 1}`;
   cancelAnimationFrame(animationIds[slotId]); // Stop the animation
@@ -211,6 +90,50 @@ function stopSpinning(slotIndex) {
   let randomItem = data[randomIndex];
   imageElement.src = randomItem.image;
   textElement.textContent = randomItem.text;
+}
+
+// Function to start spinning all slots
+function spinAll() {
+  if (spinning) return; // Exit if already spinning
+
+  spinning = true;
+
+  // Disable the spin button spinResetButton button
+  document.getElementById("spinShareButton").disabled = true;
+  document.getElementById("resetButton").disabled = true;
+
+  slots.forEach((_, index) => {
+    spin(index);
+  });
+
+  let delay = spinFor;
+  let increment = stopEvery;
+  let lastSlot = slots.length - 1;
+
+  slots.forEach((_, index) => {
+    setTimeout(() => {
+      stopSpinning(index);
+
+      // Enable the button when the last slot has stopped
+      if (index === lastSlot) {
+        // Enable the spin button spinResetButton button
+        document.getElementById("spinShareButton").disabled = false;
+        document.getElementById("resetButton").disabled = false;
+        spinning = false;
+        // Change the text of the button to 'Share'
+        spinShareButton.innerText = "Share";
+      }
+    }, delay + index * increment);
+  });
+}
+
+// Helper function to shuffle an array
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
 }
 
 function resetSlots() {
@@ -244,9 +167,21 @@ function closeModal() {
   modal.style.display = "none";
 }
 
+// Share via copy results to clipboard
 function shareCopyText() {
   console.log("shareCopyText");
-  const shareContent = document.getElementById("shareContent").textContent;
+
+  // Get HTML content
+  var shareContentHtml = document.getElementById("shareContent").innerHTML;
+
+  // Replace <br> with newline character
+  var shareContent = shareContentHtml.replace(/<br>/g, "\n");
+
+  // Add the game URL to the end of the share content
+  shareContent =
+    `My NFL fantasy franchise, generated by @FOS:\n` +
+    shareContent +
+    `\nPlay: ${gameUrl}`;
 
   // Copy to clipboard
   navigator.clipboard
@@ -266,7 +201,7 @@ function shareCopyText() {
     });
 }
 
-// Function to share to Facebook
+// Share link via Facebook
 function shareToFacebook() {
   // Your Facebook sharing code here
   // You can close the modal after sharing
@@ -278,7 +213,7 @@ function shareToFacebook() {
   window.open(facebookShareUrl, "_blank");
 }
 
-// Function to share to Twitter
+// Share results and link via Twitter (X)
 function shareToTwitter() {
   // Your Twitter sharing code here
   // You can close the modal after sharing
