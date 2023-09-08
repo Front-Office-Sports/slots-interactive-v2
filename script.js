@@ -76,7 +76,7 @@ function spinOld(slotIndex) {
   let textElement = slotElement.querySelector(".slotText");
 
   imageElement.classList.add("blur");
-  // textElement.classList.add("blur-text");
+  textElement.classList.add("blur-text");
 
   let currentIndex = 0;
   intervals[slotId] = setInterval(() => {
@@ -99,7 +99,7 @@ function spin(slotIndex) {
   let textElement = slotElement.querySelector(".slotText");
 
   imageElement.classList.add("blur");
-  textElement.classList.add("blur-text");
+  // textElement.classList.add("blur-text");
 
   // hide the text
   // textElement.classList.add("hidden");
