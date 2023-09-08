@@ -1,11 +1,13 @@
+// NOTE: change the values below to customize the game
 const coverImage = "images/slot_cover/cherry_cover.png"; // Replace with the actual path to your cover image
 const coverText = ""; // Replace with the text you want to display on the cover
 
-const newImageEvery = 100; // Change this to the number of milliseconds you want to wait before changing the image
-const spinFor = 5000; // Change this to the number of milliseconds you want to spin for
+const newImageEvery = 50; // Change this to the number of milliseconds you want to wait before changing the image
+const spinFor = 1500; // Change this to the number of milliseconds you want to spin for
 const stopEvery = 500; // Change this to the number of milliseconds you want to wait before stopping each slot
+const pickFirstN = 10; // Change this to the number of items you want to pick for each slot
 
-const gameUrl = "https://frontofficesports.com/nfl-fantasy-franchise/";
+const gameUrl = "https://frontofficesports.com/nfl-fantasy-franchise/"; // Replace with the actual URL of your game
 
 // fill all slotImage with coverImage
 slotImages = document.querySelectorAll(".slotImage");
@@ -91,7 +93,7 @@ function spinOld2(slotIndex) {
   let data = dataList[slotIndex];
 
   // Shuffle the data and pick the first 10 items
-  let randomSubset = shuffleArray([...data]).slice(0, 32);
+  let randomSubset = shuffleArray([...data]).slice(0, pickFirstN);
 
   let slotId = `slot${slotIndex + 1}`;
   let slotElement = document.getElementById(slotId);
