@@ -87,7 +87,7 @@ function spinOld(slotIndex) {
   }, newImageEvery);
 }
 
-function spin(slotIndex) {
+function spinOld2(slotIndex) {
   let data = dataList[slotIndex];
 
   // Shuffle the data and pick the first 10 items
@@ -121,6 +121,51 @@ function spin(slotIndex) {
       let currentItem = randomSubset[currentIndex];
       imageElement.src = currentItem.image;
       textElement.textContent = currentItem.text;
+      currentIndex = (currentIndex + 1) % randomSubset.length;
+      startTime = time; // Reset the start time
+    }
+
+    animationIds[slotId] = requestAnimationFrame(animate);
+  }
+
+  animationIds[slotId] = requestAnimationFrame(animate);
+}
+
+function spin(slotIndex) {
+  let data = dataList[slotIndex];
+  let randomSubset = shuffleArray([...data]).slice(0, 32);
+  let slotId = `slot${slotIndex + 1}`;
+  let slotElement = document.getElementById(slotId);
+  let imageElement = slotElement.querySelector(".slotImage");
+  let textElement = slotElement.querySelector(".slotText");
+
+  imageElement.classList.add("blur");
+
+  let currentIndex = 0;
+  let startTime = null;
+
+  if (animationIds[slotId]) {
+    cancelAnimationFrame(animationIds[slotId]);
+  }
+
+  function animate(time) {
+    if (!startTime) startTime = time;
+
+    let elapsed = time - startTime;
+
+    if (elapsed > newImageEvery) {
+      let currentItem = randomSubset[currentIndex];
+      let newImage = new Image(); // Create a new image object
+
+      // Once the image has loaded, update the DOM
+      newImage.onload = () => {
+        imageElement.src = currentItem.image;
+        textElement.textContent = currentItem.text;
+      };
+
+      // Trigger the image load
+      newImage.src = currentItem.image;
+
       currentIndex = (currentIndex + 1) % randomSubset.length;
       startTime = time; // Reset the start time
     }
