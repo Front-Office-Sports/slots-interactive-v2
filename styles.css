@@ -212,13 +212,13 @@ img[src="images/slot_cover/cherry_cover.png"] {
 
 @media (max-width: 1200px) {
   .modal-content {
-    width: 40%;
+    width: 500px;
   }
 }
 
 @media (max-width: 800px) {
   .modal-content {
-    width: 60%;
+    width: 300px;
   }
 }
 
@@ -230,6 +230,6 @@ img[src="images/slot_cover/cherry_cover.png"] {
 
 @media (max-width: 600px) {
   .modal-content {
-    width: 80%;
+    width: 200px;
   }
 }
