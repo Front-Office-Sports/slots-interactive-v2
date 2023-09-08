@@ -218,7 +218,7 @@ img[src="images/slot_cover/cherry_cover.png"] {
 
 @media (max-width: 800px) {
   .modal-content {
-    width: 300px;
+    width: 400px;
   }
 }
 
@@ -230,6 +230,6 @@ img[src="images/slot_cover/cherry_cover.png"] {
 
 @media (max-width: 600px) {
   .modal-content {
-    width: 200px;
+    width: 400px;
   }
 }
