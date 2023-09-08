@@ -179,9 +179,10 @@ img[src="images/slot_cover/cherry_cover.png"] {
   ); /* Changed from translate(-50%, -50%) to only affect the x-axis */
   background-color: #fff;
   padding: 20px;
+  padding-bottom: 100px;
   border-radius: 8px;
 
-  width: 40%;
+  width: 30%;
 }
 
 .close-button {
@@ -207,6 +208,19 @@ img[src="images/slot_cover/cherry_cover.png"] {
   margin-top: 20px;
 }
 
+.copy-popup {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
 /* grid-template-columns: auto auto;  */
 /* In mobile view, 2 columns */
 
@@ -220,6 +234,7 @@ img[src="images/slot_cover/cherry_cover.png"] {
   .modal-content {
     width: 400px;
   }
+  /* make the .slot-and-title smaller? */
 }
 
 @media (max-width: 700px) {
