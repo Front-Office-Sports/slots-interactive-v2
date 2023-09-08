@@ -1,8 +1,8 @@
 const coverImage = "images/slot_cover/cherry_cover.png"; // Replace with the actual path to your cover image
 const coverText = ""; // Replace with the text you want to display on the cover
 
-const newImageEvery = 70; // Change this to the number of milliseconds you want to wait before changing the image
-const spinFor = 1500; // Change this to the number of milliseconds you want to spin for
+const newImageEvery = 100; // Change this to the number of milliseconds you want to wait before changing the image
+const spinFor = 5000; // Change this to the number of milliseconds you want to spin for
 const stopEvery = 500; // Change this to the number of milliseconds you want to wait before stopping each slot
 
 const gameUrl = "https://frontofficesports.com/nfl-fantasy-franchise/";
